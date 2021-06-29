@@ -27,6 +27,7 @@ struct EquipmentTypeListView: View {
                 ForEach(types, id: \EquipmentType.name){
                     EquipmentTypeCellView(type: $0)
                 }
+                .onDelete(perform: deleteEquipmentType)
             }
             .sheet(isPresented: $isPresented){
                 EquipmentTypeAddView {(name: String) in
@@ -38,6 +39,15 @@ struct EquipmentTypeListView: View {
             .navigationBarItems(trailing: Button(action: {self.isPresented.toggle()}){
                 Image(systemName: "plus")
             })
+        }
+    }
+    
+    func deleteEquipmentType(at offsets: IndexSet){
+        offsets.forEach{ index in
+            let type = self.types[index]
+            self.managedObjectContext.delete(type)
+            
+            saveContext()
         }
     }
     

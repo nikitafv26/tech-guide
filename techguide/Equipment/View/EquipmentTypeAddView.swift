@@ -19,10 +19,14 @@ struct EquipmentTypeAddView: View {
                 Section(header: Text("Title")){
                     TextField("Name", text: $name)
                 }
-                Section{
-                    Button(action: addTypeAction, label: {
-                        Text("Add Type")
-                    })
+                Section {
+                    Button(action: addTypeAction){
+                        HStack{
+                            Spacer()
+                            Text("Add")
+                            Spacer()
+                        }
+                    }
                 }
             }
             .navigationBarTitle(Text("Add Type"), displayMode: .inline)
