@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Equipment" representedClassName="Equipment" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="equipmentType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EquipmentType" inverseName="equipment" inverseEntity="EquipmentType"/>
+    </entity>
     <entity name="EquipmentType" representedClassName="EquipmentType" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="equipment" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Equipment" inverseName="equipmentType" inverseEntity="Equipment"/>
     </entity>
     <elements>
-        <element name="EquipmentType" positionX="-63" positionY="-18" width="128" height="59"/>
+        <element name="EquipmentType" positionX="-63" positionY="-18" width="128" height="14"/>
+        <element name="Equipment" positionX="-63" positionY="0" width="128" height="14"/>
     </elements>
 </model>
