@@ -12,8 +12,10 @@ struct EquipmentTypeCellView: View {
     
     var body: some View {
         VStack(alignment: .leading){
-            type.name.map(Text.init)
-                .font(.title)
+            HStack{
+                type.name.map(Text.init)
+                    .font(.title)
+            }
         }
     }
 }
