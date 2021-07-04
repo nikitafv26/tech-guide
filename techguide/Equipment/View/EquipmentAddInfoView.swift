@@ -7,12 +7,19 @@
 
 import SwiftUI
 
+struct AlertMessage: Identifiable {
+    let id = UUID()
+    let text: String
+}
+
 struct EquipmentAddInfoView: View {
     
     var type: String
     @State var name: String = ""
     
     let onComplete: (String) -> Void
+    
+    @State private var message: AlertMessage? = nil
     
     var body: some View {
         Form {
@@ -32,9 +39,18 @@ struct EquipmentAddInfoView: View {
             }
             .navigationTitle(Text(type))
         }
+        .alert(item: $message) { msg in
+            Alert(
+                title: Text(msg.text),
+                dismissButton: .cancel())
+        }
     }
     
     func addEquipment(){
+        guard !name.trimmingCharacters(in: .whitespaces).isEmpty else {
+            self.message = AlertMessage(text: "Name for \(type) should not be empty")
+            return
+        }
         onComplete(name)
     }
 }
