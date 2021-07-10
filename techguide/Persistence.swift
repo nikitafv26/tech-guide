@@ -8,19 +8,13 @@
 import Foundation
 import CoreData
 
-class Persistence {
+struct Persistence {
     
-    static var shared: Persistence {
-        get {
-            return Persistence()
-        }
-    }
-    
-    private init() {}
+    static var shared = Persistence()
     
     // MARK: - Core Data stack
 
-    lazy var persistentContainer: NSPersistentContainer = {
+    let persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the

@@ -1,139 +1,60 @@
 //
-//  EquipmentTypeView.swift
+//  EquipmentTypeDetailView.swift
 //  techguide
 //
-//  Created by Nikita Fedorenko on 27.06.2021.
+//  Created by Nikita Fedorenko on 03.07.2021.
 //
 
 import SwiftUI
-import CoreData
+
+struct AlertMessage: Identifiable {
+    let id = UUID()
+    let text: String
+}
 
 struct EquipmentAddView: View {
     
-    let typesTestData: [String] = [
-        "Опрыскиватель", "Комбайн", "Посевной комплекс"
-    ]
+    var type: String
+    @State var name: String = ""
+    @Binding var popToRootView: Bool
+
+    //@Binding var shouldPopToRootView: Bool
     
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(
-        entity:
-            EquipmentType.entity(),
-        sortDescriptors:[
-            NSSortDescriptor(keyPath: \EquipmentType.name, ascending: true)
-        ]
-    ) var types: FetchedResults<EquipmentType>
+    let onComplete: (String) -> Void
     
-    //@State var isPresented = false
+    @State private var message: AlertMessage? = nil
     
     var body: some View {
-       
-        List{
-            ForEach(types, id: \EquipmentType.id){ type in
-                NavigationLink(
-                    destination:
-                        EquipmentAddInfoView(type: type.name ?? ""){ name in
-                            print(name)
-                            //addEquipment(name: name, type: type)
-                        },
-                    label: {
-                        EquipmentTypeCellView(type: type)
+        Form {
+            Section(header: Text("Name")){
+                TextField("Name", text: $name)
+            }
+            Section{
+                HStack{
+                    Spacer()
+                    Button(action: {
+                        addEquipment()
+                    }, label: {
+                        Text("Add")
                     })
+                    Spacer()
+                }
             }
-            .onDelete(perform: deleteEquipmentType)
+            .navigationTitle(Text(type))
         }
-        .navigationTitle(Text("Types"))
-        .onAppear(){
-            DispatchQueue.global().async {
-                addTypesIfNotExists()
-            }
-        }
-        
-        //.sheet(isPresented: $isPresented){
-        //            EquipmentTypeAddView {(name: String) in
-        //                self.addEquipmentType(name: name)
-        //                self.isPresented = false
-        //            }
-        //}
-    }
-    
-    func addTypesIfNotExists()
-    {
-        if types.count == 0{
-            for name in typesTestData{
-                addEquipmentType(name: name)
-            }
+        .alert(item: $message) { msg in
+            Alert(
+                title: Text(msg.text),
+                dismissButton: .cancel())
         }
     }
     
-    func deleteEquipmentType(at offsets: IndexSet){
-        offsets.forEach{ index in
-            let type = self.types[index]
-            self.managedObjectContext.delete(type)
-            
-            saveContext()
+    func addEquipment(){
+        guard !name.trimmingCharacters(in: .whitespaces).isEmpty else {
+            self.message = AlertMessage(text: "Name for \(type) should not be empty")
+            return
         }
-    }
-    
-    func addEquipmentType(name: String){
-        let type = EquipmentType(context: managedObjectContext)
-        type.id = UUID()
-        type.name = name
-        
-        saveContext()
-    }
-    
-    func addEquipment(name: String, type: EquipmentType) {
-        let eq = Equipment(context: managedObjectContext)
-        eq.id = UUID()
-        eq.name = name
-        eq.equipmentType = type
-        saveContext()
-    }
-    
-    func saveContext() {
-        do {
-            try managedObjectContext.save()
-        }catch{
-            fatalError("Error while saving managed object context \(error)")
-        }
+        self.popToRootView = false
+        onComplete(self.name)
     }
 }
-
-struct EquipmentTypeView_Previews: PreviewProvider {
-    static var previews: some View {
-        EquipmentAddView()
-    }
-}
-
-
-//struct EquipmentTypeAddView: View {
-//
-//    @State var name = ""
-//
-//    let onComplete: (String) -> Void
-//
-//    var body: some View {
-//        NavigationView{
-//            Form {
-//                Section(header: Text("Title")){
-//                    TextField("Name", text: $name)
-//                }
-//                Section {
-//                    Button(action: addTypeAction){
-//                        HStack{
-//                            Spacer()
-//                            Text("Add")
-//                            Spacer()
-//                        }
-//                    }
-//                }
-//            }
-//            .navigationBarTitle(Text("Add Type"), displayMode: .inline)
-//        }
-//    }
-//
-//    func addTypeAction() {
-//        onComplete(name)
-//    }
-//
-//}
