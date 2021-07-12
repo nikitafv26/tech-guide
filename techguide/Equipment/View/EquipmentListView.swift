@@ -17,16 +17,17 @@ import SwiftUI
 struct EquipmentListView: View {
     
     @State var isActive: Bool = false
+    @StateObject private var viewModel = EquipmentViewModel()
     
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(
-        entity:
-            Equipment.entity()
-        ,
-        sortDescriptors:[
-            NSSortDescriptor(keyPath: \Equipment.name, ascending: true)
-        ]
-    ) var equipments: FetchedResults<Equipment>
+//    @Environment(\.managedObjectContext) var managedObjectContext
+//    @FetchRequest(
+//        entity:
+//            Equipment.entity()
+//        ,
+//        sortDescriptors:[
+//            NSSortDescriptor(keyPath: \Equipment.name, ascending: true)
+//        ]
+//    ) var equipments: FetchedResults<Equipment>
     
     var body: some View {
         NavigationView {
@@ -37,7 +38,7 @@ struct EquipmentListView: View {
                     .isDetailLink(false)
                 
                 List{
-                    ForEach(equipments, id: \Equipment.id){ eq in
+                    ForEach(viewModel.equipments, id: \Equipment.id){ eq in
                         VStack(alignment: .leading){
                             eq.name.map(Text.init)
                                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
@@ -59,19 +60,17 @@ struct EquipmentListView: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
-    func saveContext(){
-        do{
-            try managedObjectContext.save()
-        }catch{
-            print("Error while saving managed objec context \(error)")
-        }
-    }
+//    func saveContext(){
+//        do{
+//            try managedObjectContext.save()
+//        }catch{
+//            print("Error while saving managed objec context \(error)")
+//        }
+//    }
  
     func deleteEquipment(at indexSet: IndexSet) {
         indexSet.forEach { index in
-            let eq = equipments[index]
-            managedObjectContext.delete(eq)
-            //saveContext()
+            viewModel.delete(id: index)
         }
     }
     

@@ -22,6 +22,7 @@
 		B3443F08268865AE00B2F13C /* EquipmentTypeCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3443F07268865AE00B2F13C /* EquipmentTypeCellView.swift */; };
 		B3B413CB26904577007816D4 /* EquipmentAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B413CA26904577007816D4 /* EquipmentAddView.swift */; };
 		B3DB9D90269C178D0014DB0E /* EquipmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB9D8F269C178D0014DB0E /* EquipmentRepository.swift */; };
+		B3DB9D92269C62970014DB0E /* EquipmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB9D91269C62970014DB0E /* EquipmentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		B3443F07268865AE00B2F13C /* EquipmentTypeCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentTypeCellView.swift; sourceTree = "<group>"; };
 		B3B413CA26904577007816D4 /* EquipmentAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentAddView.swift; sourceTree = "<group>"; };
 		B3DB9D8F269C178D0014DB0E /* EquipmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentRepository.swift; sourceTree = "<group>"; };
+		B3DB9D91269C62970014DB0E /* EquipmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 		B33CE9FC268C880B00CDF4CF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				B3DB9D91269C62970014DB0E /* EquipmentViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				B3B413CB26904577007816D4 /* EquipmentAddView.swift in Sources */,
 				B3443ED32685A50A00B2F13C /* techguide.xcdatamodeld in Sources */,
 				B3443ECC2685A50A00B2F13C /* AppDelegate.swift in Sources */,
+				B3DB9D92269C62970014DB0E /* EquipmentViewModel.swift in Sources */,
 				B3443ECE2685A50A00B2F13C /* SceneDelegate.swift in Sources */,
 				B3DB9D90269C178D0014DB0E /* EquipmentRepository.swift in Sources */,
 				B3443F062688619800B2F13C /* EquipmentTypeListView.swift in Sources */,
